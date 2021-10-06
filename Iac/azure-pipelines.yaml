@@ -1,0 +1,26 @@
+parameters:
+  - name: aws_access_key
+    displayName: Aws Access Key
+    type: string
+
+  - name: aws_secret_key
+    displayName: Aws Secret Key
+    type: string
+
+variables:
+- name: state_file
+  value: state.tfstate
+
+trigger: none 
+
+stages:
+  - stage: StartProject
+    displayName: Start Project
+    jobs:
+      - job: RunTerraform
+        displayName: Run terraform
+        steps:        
+        - script: |
+            cd IaC/
+            ./start_project.sh "${{parameters.aws_access_key}}" "${{parameters.aws_secret_key}}" 
+          displayName: Terraform apply

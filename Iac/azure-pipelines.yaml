@@ -19,8 +19,13 @@ stages:
     jobs:
       - job: RunTerraform
         displayName: Run terraform
-        steps:        
+        steps:
+        # - task: TerraformCLI@0
+        #   displayName: 'Terraform init'
+        #   inputs:
+        #     command: init
+        #     workingDirectory: $(System.DefaultWorkingDirectory)/Iac/terraform
         - script: |
-            cd IaC/
-            ./start_project.sh "${{parameters.aws_access_key}}" "${{parameters.aws_secret_key}}" 
+            cd Iac/
+            ./start_infra.sh "${{parameters.aws_access_key}}" "${{parameters.aws_secret_key}}" 
           displayName: Terraform apply
